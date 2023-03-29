@@ -35,7 +35,8 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install 🔧
+      - if: steps.cache-npm.outputs.cache-hit != 'true'
+        name: Install 🔧
         run: |
           npm install --frozen-lockfile
       
